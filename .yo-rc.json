@@ -1,0 +1,35 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.cem.movieapp"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "movieProject",
+        "packageName": "com.cem.movieapp",
+        "packageFolder": "com/cem/movieapp",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": "spring-websocket",
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "mysql",
+        "searchEngine": "elasticsearch",
+        "messageBroker": false,
+        "serviceDiscoveryType": "eureka",
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "NzE5NDIxNTg4YjQ5ZDBhZTQ5ZTE4OGYyMjJkZTExNDRjOWRhNWM4NjgwYmRiNjFhMmYzMjIyYzUzZGU1MTg5NDA1YTZhM2I4ZWFmYzkwYjI1ZTk3YTMzMTM3OWE1Yzc4NjBjY2MzMjU1MmM4OGM0YjczZGMzZTQ1ZTQ0MDNkODg=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["gatling", "cucumber", "protractor"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": false
+    }
+}
