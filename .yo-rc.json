@@ -8,7 +8,7 @@
         "baseName": "movieProject",
         "packageName": "com.cem.movieapp",
         "packageFolder": "com/cem/movieapp",
-        "serverPort": "8080",
+        "serverPort": "8081",
         "authenticationType": "jwt",
         "cacheProvider": "ehcache",
         "enableHibernateCache": true,

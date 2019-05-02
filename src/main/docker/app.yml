@@ -11,7 +11,7 @@ services:
             - JHIPSTER_SLEEP=30 # gives time for the JHipster Registry to boot before the application
             - SPRING_DATA_JEST_URI=http://movieproject-elasticsearch:9200
         ports:
-            - 8080:8080
+            - 8081:8081
     movieproject-mysql:
         extends:
             file: mysql.yml
