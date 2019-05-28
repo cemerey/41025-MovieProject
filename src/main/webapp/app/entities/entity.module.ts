@@ -7,6 +7,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'user-extra',
                 loadChildren: './user-extra/user-extra.module#MovieProjectUserExtraModule'
+            },
+            {
+                path: 'user-extra',
+                loadChildren: './user-extra/user-extra.module#MovieProjectUserExtraModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

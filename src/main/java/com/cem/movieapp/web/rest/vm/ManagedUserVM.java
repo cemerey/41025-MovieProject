@@ -3,6 +3,7 @@ package com.cem.movieapp.web.rest.vm;
 import com.cem.movieapp.service.dto.UserDTO;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.
@@ -18,7 +19,7 @@ public class ManagedUserVM extends UserDTO {
 
     private String phoneNumber;
     private String address;
-    private Instant dateOfBirth;
+    private LocalDate dateOfBirth;
 
 
 
@@ -50,11 +51,11 @@ public class ManagedUserVM extends UserDTO {
         this.address = address;
     }
 
-    public Instant getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Instant dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity UserExtra.
     -->
-    <changeSet id="20190528042358-2" author="jhipster">
+    <changeSet id="20190528042358-4" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="user_extra"

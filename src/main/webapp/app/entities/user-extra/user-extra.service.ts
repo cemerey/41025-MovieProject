@@ -59,7 +59,7 @@ export class UserExtraService {
 
     protected convertDateFromClient(userExtra: IUserExtra): IUserExtra {
         const copy: IUserExtra = Object.assign({}, userExtra, {
-            dateOfBirth: userExtra.dateOfBirth != null && userExtra.dateOfBirth.isValid() ? userExtra.dateOfBirth.toJSON() : null
+            dateOfBirth: userExtra.dateOfBirth != null && userExtra.dateOfBirth.isValid() ? userExtra.dateOfBirth.format(DATE_FORMAT) : null
         });
         return copy;
     }

@@ -42,7 +42,7 @@
                 <td><a [routerLink]="['/user-extra', userExtra.id, 'view' ]">{{userExtra.id}}</a></td>
                 <td>{{userExtra.phoneNumber}}</td>
                 <td>{{userExtra.address}}</td>
-                <td>{{userExtra.dateOfBirth | date:'medium'}}</td>
+                <td>{{userExtra.dateOfBirth | date:'mediumDate'}}</td>
                 <td>
                     {{userExtra.user?.id}}
                 </td>

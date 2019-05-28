@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { UserExtraComponentsPage, UserExtraDeleteDialog, UserExtraUpdatePage } from './user-extra.page-object';
@@ -42,12 +42,12 @@ describe('UserExtra e2e test', () => {
         await promise.all([
             userExtraUpdatePage.setPhoneNumberInput('phoneNumber'),
             userExtraUpdatePage.setAddressInput('address'),
-            userExtraUpdatePage.setDateOfBirthInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+            userExtraUpdatePage.setDateOfBirthInput('2000-12-31'),
             userExtraUpdatePage.userSelectLastOption()
         ]);
         expect(await userExtraUpdatePage.getPhoneNumberInput()).to.eq('phoneNumber');
         expect(await userExtraUpdatePage.getAddressInput()).to.eq('address');
-        expect(await userExtraUpdatePage.getDateOfBirthInput()).to.contain('2001-01-01T02:30');
+        expect(await userExtraUpdatePage.getDateOfBirthInput()).to.eq('2000-12-31');
         await userExtraUpdatePage.save();
         expect(await userExtraUpdatePage.getSaveButton().isPresent()).to.be.false;
 

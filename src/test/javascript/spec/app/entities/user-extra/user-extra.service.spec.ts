@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { UserExtraService } from 'app/entities/user-extra/user-extra.service';
 import { IUserExtra, UserExtra } from 'app/shared/model/user-extra.model';
 
@@ -32,7 +32,7 @@ describe('Service Tests', () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        dateOfBirth: currentDate.format(DATE_TIME_FORMAT)
+                        dateOfBirth: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -49,7 +49,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0,
-                        dateOfBirth: currentDate.format(DATE_TIME_FORMAT)
+                        dateOfBirth: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -72,7 +72,7 @@ describe('Service Tests', () => {
                     {
                         phoneNumber: 'BBBBBB',
                         address: 'BBBBBB',
-                        dateOfBirth: currentDate.format(DATE_TIME_FORMAT)
+                        dateOfBirth: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -96,7 +96,7 @@ describe('Service Tests', () => {
                     {
                         phoneNumber: 'BBBBBB',
                         address: 'BBBBBB',
-                        dateOfBirth: currentDate.format(DATE_TIME_FORMAT)
+                        dateOfBirth: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );

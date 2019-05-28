@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -23,8 +23,11 @@ public class UserExtra implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @MapsId
+    private User user;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -33,11 +36,9 @@ public class UserExtra implements Serializable {
     private String address;
 
     @Column(name = "date_of_birth")
-    private Instant dateOfBirth;
+    private LocalDate dateOfBirth;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User user;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -74,16 +75,16 @@ public class UserExtra implements Serializable {
         this.address = address;
     }
 
-    public Instant getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public UserExtra dateOfBirth(Instant dateOfBirth) {
+    public UserExtra dateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
 
-    public void setDateOfBirth(Instant dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

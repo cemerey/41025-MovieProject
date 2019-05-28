@@ -4,7 +4,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from './user-extra.service';
@@ -19,7 +18,7 @@ export class UserExtraUpdateComponent implements OnInit {
     isSaving: boolean;
 
     users: IUser[];
-    dateOfBirth: string;
+    dateOfBirthDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -32,7 +31,6 @@ export class UserExtraUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ userExtra }) => {
             this.userExtra = userExtra;
-            this.dateOfBirth = this.userExtra.dateOfBirth != null ? this.userExtra.dateOfBirth.format(DATE_TIME_FORMAT) : null;
         });
         this.userService
             .query()
@@ -49,7 +47,6 @@ export class UserExtraUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.userExtra.dateOfBirth = this.dateOfBirth != null ? moment(this.dateOfBirth, DATE_TIME_FORMAT) : null;
         if (this.userExtra.id !== undefined) {
             this.subscribeToSaveResponse(this.userExtraService.update(this.userExtra));
         } else {
