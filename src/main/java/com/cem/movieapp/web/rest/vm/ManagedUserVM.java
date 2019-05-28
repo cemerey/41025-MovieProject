@@ -2,6 +2,7 @@ package com.cem.movieapp.web.rest.vm;
 
 import com.cem.movieapp.service.dto.UserDTO;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 
 /**
  * View Model extending the UserDTO, which is meant to be used in the user management UI.
@@ -15,6 +16,12 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+    private String phoneNumber;
+    private String address;
+    private Instant dateOfBirth;
+
+
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
     }
@@ -25,6 +32,30 @@ public class ManagedUserVM extends UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Instant getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Instant dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Override

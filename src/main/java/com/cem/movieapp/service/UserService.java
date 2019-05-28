@@ -3,7 +3,9 @@ package com.cem.movieapp.service;
 import com.cem.movieapp.config.Constants;
 import com.cem.movieapp.domain.Authority;
 import com.cem.movieapp.domain.User;
+import com.cem.movieapp.domain.UserExtra;
 import com.cem.movieapp.repository.AuthorityRepository;
+import com.cem.movieapp.repository.UserExtraRepository;
 import com.cem.movieapp.repository.UserRepository;
 import com.cem.movieapp.repository.search.UserSearchRepository;
 import com.cem.movieapp.security.AuthoritiesConstants;
@@ -41,6 +43,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserSearchRepository userSearchRepository;
+
+    private UserExtraRepository userExtraRepository;
 
     private final AuthorityRepository authorityRepository;
 
@@ -92,7 +96,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(UserDTO userDTO, String password, String phone, String address, Instant dob) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -126,6 +130,16 @@ public class UserService {
         userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        // Create and save the UserExtra entity
+        UserExtra newUserExtra = new UserExtra();
+        newUserExtra.setUser(newUser);
+        newUserExtra.setPhoneNumber(phone);
+        newUserExtra.setAddress(address);
+        newUserExtra.setDateOfBirth(dob);
+        userExtraRepository.save(newUserExtra);
+        log.debug("Created Information for UserExtra: {}", newUserExtra);
+
         return newUser;
     }
 
