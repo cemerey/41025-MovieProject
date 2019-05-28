@@ -3,7 +3,6 @@
         <h2 *ngIf="userExtra">Additional User settings for [<b>{{account.login}}</b>]</h2>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <div>
-                <jhi-alert></jhi-alert>
                 <div class="form-group" [hidden]="!userExtra.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"

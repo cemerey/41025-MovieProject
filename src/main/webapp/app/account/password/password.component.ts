@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from 'app/core';
 import { PasswordService } from './password.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'jhi-password',
@@ -16,7 +17,7 @@ export class PasswordComponent implements OnInit {
     newPassword: string;
     confirmPassword: string;
 
-    constructor(private passwordService: PasswordService, private accountService: AccountService) {}
+    constructor(private passwordService: PasswordService, private accountService: AccountService, private toastr: ToastrService) {}
 
     ngOnInit() {
         this.accountService.identity().then(account => {
@@ -35,10 +36,12 @@ export class PasswordComponent implements OnInit {
                 () => {
                     this.error = null;
                     this.success = 'OK';
+                    this.toastr.success('Password Updated');
                 },
                 () => {
                     this.success = null;
                     this.error = 'ERROR';
+                    this.toastr.error('Error Updating Password');
                 }
             );
         }

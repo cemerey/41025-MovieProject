@@ -20,6 +20,8 @@ import { MovieProjectEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
@@ -36,7 +38,13 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         MovieProjectAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         MovieProjectEntityModule,
-        MovieProjectAppRoutingModule
+        MovieProjectAppRoutingModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: true
+        }) // ToastrModule added
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
     providers: [

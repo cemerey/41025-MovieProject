@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from 'app/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'jhi-settings',
     templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
-    error: string;
-    success: string;
     settingsAccount: any;
     languages: any[];
 
-    constructor(private accountService: AccountService) {}
+    constructor(private accountService: AccountService, private toastr: ToastrService) {}
 
     ngOnInit() {
         this.accountService.identity().then(account => {
@@ -23,15 +22,13 @@ export class SettingsComponent implements OnInit {
     save() {
         this.accountService.save(this.settingsAccount).subscribe(
             () => {
-                this.error = null;
-                this.success = 'OK';
+                this.toastr.success('Settings updated successfully');
                 this.accountService.identity(true).then(account => {
                     this.settingsAccount = this.copyAccount(account);
                 });
             },
             () => {
-                this.success = null;
-                this.error = 'ERROR';
+                this.toastr.error('Error updating settings');
             }
         );
     }

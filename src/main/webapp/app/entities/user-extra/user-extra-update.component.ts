@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
 import { UserExtraService } from './user-extra.service';
-import { AccountService, IUser, UserService } from 'app/core';
+import { AccountService, IUser } from 'app/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'jhi-user-extra-update',
@@ -22,11 +20,7 @@ export class UserExtraUpdateComponent implements OnInit {
     users: IUser[];
     dateOfBirthDp: any;
 
-    constructor(
-        protected jhiAlertService: JhiAlertService,
-        protected userExtraService: UserExtraService,
-        private accountService: AccountService
-    ) {}
+    constructor(private toastr: ToastrService, protected userExtraService: UserExtraService, private accountService: AccountService) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -57,12 +51,12 @@ export class UserExtraUpdateComponent implements OnInit {
 
     protected onSaveSuccess() {
         this.isSaving = false;
-        this.jhiAlertService.success('Additional Settings saved!', null, null);
+        this.toastr.success('Additional Settings saved!', null, null);
     }
 
     protected onSaveError(errorMessage: string) {
         this.isSaving = false;
-        this.jhiAlertService.error(errorMessage, null, null);
+        this.toastr.error(errorMessage, null, null);
     }
 
     trackUserById(index: number, item: IUser) {
