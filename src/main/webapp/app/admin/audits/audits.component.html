@@ -18,6 +18,12 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-5">
+            <input type="text" class="input" [(ngModel)]="searchText" placeholder="Search User">
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-sm table-striped">
             <thead>
@@ -29,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let audit of audits">
+            <tr *ngFor="let audit of audits | searchFilter: searchText">
                 <td><span>{{audit.timestamp| date:'medium'}}</span></td>
                 <td><small>{{audit.principal}}</small></td>
                 <td>{{audit.type}}</td>

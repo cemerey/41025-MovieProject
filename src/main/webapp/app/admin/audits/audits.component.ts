@@ -7,6 +7,7 @@ import { JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { Audit } from './audit.model';
 import { AuditsService } from './audits.service';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
     selector: 'jhi-audit',
@@ -122,5 +123,16 @@ export class AuditsComponent implements OnInit, OnDestroy {
 
     private onError(error) {
         this.alertService.error(error.error, error.message, null);
+    }
+}
+
+@Pipe({
+    name: 'searchFilter'
+})
+export class FilterPipe implements PipeTransform {
+    transform(items: any[], term): any {
+        console.log('term', term);
+        console.log(items[1]);
+        return term ? items.filter(item => item.principal.indexOf(term) !== -1) : items;
     }
 }
