@@ -38,6 +38,8 @@ export class LoginService {
     }
 
     logout() {
+        console.log('logout called!!');
+        this.accountService.logout().subscribe();
         this.authServerProvider.logout().subscribe();
         this.accountService.authenticate(null);
     }

@@ -1,6 +1,7 @@
 package com.cem.movieapp.web.rest;
 
 
+import com.cem.movieapp.config.AuditEventPublisher;
 import com.cem.movieapp.domain.User;
 import com.cem.movieapp.repository.UserRepository;
 import com.cem.movieapp.security.SecurityUtils;
@@ -12,10 +13,14 @@ import com.cem.movieapp.web.rest.errors.*;
 import com.cem.movieapp.web.rest.vm.KeyAndPasswordVM;
 import com.cem.movieapp.web.rest.vm.ManagedUserVM;
 
+import io.micrometer.core.annotation.Timed;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.common.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,11 +42,15 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    @Inject
+    private AuditEventPublisher auditPublisher;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, AuditEventPublisher auditPublisher) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.auditPublisher = auditPublisher;
     }
 
     /**
@@ -176,5 +185,16 @@ public class AccountResource {
         return !StringUtils.isEmpty(password) &&
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+    }
+
+    @PostMapping(path = "/account/logout")
+    @Timed
+    public void logout() {
+        UserDTO user = userService.getUserWithAuthorities().map(UserDTO::new)
+                        .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+        String principal = user.getLogin();
+        AuditEvent event = new AuditEvent(principal, "LOGOUT_SUCCESS", new HashMap<String, Object>());
+        auditPublisher.publish(event);
+        SecurityContextHolder.clearContext();
     }
 }

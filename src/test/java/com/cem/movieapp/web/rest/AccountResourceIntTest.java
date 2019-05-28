@@ -1,6 +1,7 @@
 package com.cem.movieapp.web.rest;
 
 import com.cem.movieapp.MovieProjectApp;
+import com.cem.movieapp.config.AuditEventPublisher;
 import com.cem.movieapp.config.Constants;
 import com.cem.movieapp.domain.Authority;
 import com.cem.movieapp.domain.User;
@@ -75,6 +76,9 @@ public class AccountResourceIntTest {
     @Mock
     private MailService mockMailService;
 
+    @Mock
+    AuditEventPublisher mockAuditPublisher;
+
     private MockMvc restMvc;
 
     private MockMvc restUserMockMvc;
@@ -84,10 +88,10 @@ public class AccountResourceIntTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(any());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService);
+            new AccountResource(userRepository, userService, mockMailService, mockAuditPublisher);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService);
+            new AccountResource(userRepository, mockUserService, mockMailService, mockAuditPublisher);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)
