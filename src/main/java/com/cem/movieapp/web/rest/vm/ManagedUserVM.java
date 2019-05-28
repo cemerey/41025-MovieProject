@@ -2,7 +2,6 @@ package com.cem.movieapp.web.rest.vm;
 
 import com.cem.movieapp.service.dto.UserDTO;
 import javax.validation.constraints.Size;
-import java.time.Instant;
 import java.time.LocalDate;
 
 /**

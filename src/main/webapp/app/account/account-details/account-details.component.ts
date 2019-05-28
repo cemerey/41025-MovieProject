@@ -1,31 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
+import { AccountService } from 'app/core';
+import { UserExtraService } from 'app/entities/user-extra';
 import { IUserExtra } from 'app/shared/model/user-extra.model';
-import { UserExtraService } from './user-extra.service';
-import { AccountService, IUser, UserService } from 'app/core';
+import { Observable } from 'rxjs';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { JhiAlertService } from 'ng-jhipster';
 
 @Component({
-    selector: 'jhi-user-extra-update',
-    templateUrl: './user-extra-update.component.html',
-    styleUrls: ['./user.scss']
+    selector: 'jhi-account-details',
+    templateUrl: './account-details.component.html',
+    styles: []
 })
-export class UserExtraUpdateComponent implements OnInit {
+export class AccountDetailsComponent implements OnInit {
+    account: any;
     userExtra: IUserExtra;
     isSaving: boolean;
-    account: any;
-
-    users: IUser[];
-    dateOfBirthDp: any;
 
     constructor(
-        protected jhiAlertService: JhiAlertService,
-        protected userExtraService: UserExtraService,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private userExtraService: UserExtraService,
+        private jhiAlertService: JhiAlertService
     ) {}
 
     ngOnInit() {
@@ -36,10 +30,6 @@ export class UserExtraUpdateComponent implements OnInit {
                 this.userExtra = userExtra.body;
             });
         });
-    }
-
-    previousState() {
-        window.history.back();
     }
 
     save() {
@@ -57,7 +47,7 @@ export class UserExtraUpdateComponent implements OnInit {
 
     protected onSaveSuccess() {
         this.isSaving = false;
-        this.jhiAlertService.success('Additional Settings saved!', null, null);
+        this.jhiAlertService.success('Details Updated', null, null);
     }
 
     protected onSaveError(errorMessage: string) {
@@ -65,7 +55,7 @@ export class UserExtraUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackUserById(index: number, item: IUser) {
-        return item.id;
+    previousState() {
+        window.history.back();
     }
 }

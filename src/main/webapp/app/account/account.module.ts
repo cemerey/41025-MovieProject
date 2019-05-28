@@ -13,6 +13,8 @@ import {
     SettingsComponent,
     accountState
 } from './';
+import { AccountDetailsComponent } from './account-details/account-details.component';
+import { UserExtraComponent, UserExtraDetailComponent, UserExtraUpdateComponent } from 'app/entities/user-extra';
 
 @NgModule({
     imports: [MovieProjectSharedModule, RouterModule.forChild(accountState)],
@@ -23,7 +25,11 @@ import {
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
-        SettingsComponent
+        SettingsComponent,
+        AccountDetailsComponent,
+        UserExtraComponent,
+        UserExtraUpdateComponent,
+        UserExtraDetailComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
