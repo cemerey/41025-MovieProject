@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movie">
+            <h2><span>Movie</span> {{movie.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{movie.title}}</span>
+                </dd>
+                <dt><span>Genre</span></dt>
+                <dd>
+                    <span>{{movie.genre}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{movie.description}}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="movie.image">
+                        <a (click)="openFile(movie.imageContentType, movie.image)">
+                            <img [src]="'data:' + movie.imageContentType + ';base64,' + movie.image" style="max-width: 100%;" alt="movie image"/>
+                        </a>
+                        <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                            {{movie.imageContentType}}, {{byteSize(movie.image)}}
+                        </div>
+                    </div>
+                </dd>
+                <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span>Qty In Stock</span></dt>
+                <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <span>{{movie.qtyInStock}}</span>
+                </dd>
+                <dt><span>Price</span></dt>
+                <dd>
+                    <span>{{movie.price | currency}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"type="button"
+                    [routerLink]="['/movie', movie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

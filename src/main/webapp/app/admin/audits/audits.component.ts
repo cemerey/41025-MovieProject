@@ -131,8 +131,6 @@ export class AuditsComponent implements OnInit, OnDestroy {
 })
 export class FilterPipe implements PipeTransform {
     transform(items: any[], term): any {
-        console.log('term', term);
-        console.log(items[1]);
         return term ? items.filter(item => item.principal.indexOf(term) !== -1) : items;
     }
 }
