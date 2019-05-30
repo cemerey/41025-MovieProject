@@ -23,16 +23,18 @@
                         <a (click)="openFile(movie.imageContentType, movie.image)">
                             <img [src]="'data:' + movie.imageContentType + ';base64,' + movie.image" style="max-width: 100%;" alt="movie image"/>
                         </a>
-                        {{movie.imageContentType}}, {{byteSize(movie.image)}}
+                        <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                            {{movie.imageContentType}}, {{byteSize(movie.image)}}
+                        </div>
                     </div>
                 </dd>
-                <dt><span>Qty In Stock</span></dt>
-                <dd>
+                <dt *jhiHasAnyAuthority="'ROLE_ADMIN'"><span>Qty In Stock</span></dt>
+                <dd *jhiHasAnyAuthority="'ROLE_ADMIN'">
                     <span>{{movie.qtyInStock}}</span>
                 </dd>
                 <dt><span>Price</span></dt>
                 <dd>
-                    <span>{{movie.price}}</span>
+                    <span>{{movie.price | currency}}</span>
                 </dd>
             </dl>
 
@@ -42,7 +44,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"type="button"
                     [routerLink]="['/movie', movie.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
