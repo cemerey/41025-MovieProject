@@ -23,6 +23,7 @@ export class AccountService {
     }
 
     logout(): Observable<HttpResponse<any>> {
+        localStorage.clear();
         return this.http.post(SERVER_API_URL + 'api/account/logout', 'Logout', { observe: 'response' });
     }
 

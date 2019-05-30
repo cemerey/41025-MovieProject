@@ -8,8 +8,10 @@ import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IMovie } from 'app/shared/model/movie.model';
 import { AccountService } from 'app/core';
 import { MovieService } from './movie.service';
+import { ShoppingCartComponent } from 'app/shopping-cart/shopping-cart.component';
 
 @Component({
+    providers: [ShoppingCartComponent],
     selector: 'jhi-movie',
     templateUrl: './movie.component.html'
 })
@@ -25,7 +27,8 @@ export class MovieComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected eventManager: JhiEventManager,
         protected activatedRoute: ActivatedRoute,
-        protected accountService: AccountService
+        protected accountService: AccountService,
+        private cart: ShoppingCartComponent
     ) {
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
@@ -104,5 +107,9 @@ export class MovieComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addToCart(id: number) {
+        this.cart.addToCart(id);
     }
 }

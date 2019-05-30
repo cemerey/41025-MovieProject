@@ -47,7 +47,7 @@
                 <td>{{movie.description}}</td>
                 <td>
                     <a *ngIf="movie.image" (click)="openFile(movie.imageContentType, movie.image)">
-                        <img [src]="'data:' + movie.imageContentType + ';base64,' + movie.image" style="max-height: 30px;" alt="movie image"/>
+                        <img [src]="'data:' + movie.imageContentType + ';base64,' + movie.image" style="max-height: 100px;" alt="movie image"/>
                     </a>
                     <div *jhiHasAnyAuthority="'ROLE_ADMIN'" >
                         <span *ngIf="movie.image" >{{movie.imageContentType}}, {{byteSize(movie.image)}}</span>
@@ -62,6 +62,12 @@
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                (click)="addToCart(movie.id)"
+                                class="btn btn-success btn-sm">
+                            <fa-icon [icon]="'shopping-basket'"></fa-icon>
+                            <span class="d-none d-md-inline">Add to Cart</span>
                         </button>
                         <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/movie', movie.id, 'edit']"

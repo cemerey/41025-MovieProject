@@ -11,12 +11,21 @@ import {
     movieRoute,
     moviePopupRoute
 } from './';
+import { shoppingCartRoute } from 'app/shopping-cart/shopping-cart.route';
+import { ShoppingCartComponent } from 'app/shopping-cart/shopping-cart.component';
 
-const ENTITY_STATES = [...movieRoute, ...moviePopupRoute];
+const ENTITY_STATES = [...movieRoute, ...moviePopupRoute, shoppingCartRoute];
 
 @NgModule({
     imports: [MovieProjectSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [MovieComponent, MovieDetailComponent, MovieUpdateComponent, MovieDeleteDialogComponent, MovieDeletePopupComponent],
+    declarations: [
+        MovieComponent,
+        MovieDetailComponent,
+        MovieUpdateComponent,
+        MovieDeleteDialogComponent,
+        MovieDeletePopupComponent,
+        ShoppingCartComponent
+    ],
     entryComponents: [MovieComponent, MovieUpdateComponent, MovieDeleteDialogComponent, MovieDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

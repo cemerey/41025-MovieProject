@@ -1,0 +1,39 @@
+<div>
+    <h2 id="page-heading">
+        <span>Cart</span>
+    </h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Remove</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let item of items">
+                    <td align="center">
+                        <a (click)="remove(item.movie.id)">X</a>
+                    </td>
+                    <td>{{item.movie.title}}</td>
+                    <td>
+                        <a *ngIf="item.movie.image" (click)="openFile(item.movie.imageContentType, item.movie.image)">
+                            <img [src]="'data:' + item.movie.imageContentType + ';base64,' + item.movie.image" style="max-height: 100px;" alt="movie image"/>
+                        </a>
+                    </td>
+                    <td>{{item.movie.price}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{(item.movie.price * item.quantity) | currency}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5" align="right">Total</td>
+                    <td>{{totalCost | currency}}</td>
+                </tr>
+                </tbody>
+            </table>
+</div>

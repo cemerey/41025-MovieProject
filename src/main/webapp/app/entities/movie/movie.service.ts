@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IMovie } from 'app/shared/model/movie.model';
+import { IMovie, Movie } from 'app/shared/model/movie.model';
+import { map } from 'rxjs/operators';
 
 type EntityResponseType = HttpResponse<IMovie>;
 type EntityArrayResponseType = HttpResponse<IMovie[]>;
@@ -40,5 +41,9 @@ export class MovieService {
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IMovie[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
+    }
+
+    get(id: number) {
+        return this.find(id).pipe(map((movie: HttpResponse<Movie>) => movie.body));
     }
 }
