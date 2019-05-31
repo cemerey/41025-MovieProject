@@ -15,6 +15,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'movie',
                 loadChildren: './movie/movie.module#MovieProjectMovieModule'
+            },
+            {
+                path: 'order-history',
+                loadChildren: './order-history/order-history.module#MovieProjectOrderHistoryModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

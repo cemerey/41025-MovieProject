@@ -43,6 +43,7 @@ public class CacheConfiguration {
             cm.createCache(com.cem.movieapp.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.cem.movieapp.domain.UserExtra.class.getName(), jcacheConfiguration);
             cm.createCache(com.cem.movieapp.domain.Movie.class.getName(), jcacheConfiguration);
+            cm.createCache(com.cem.movieapp.domain.OrderHistory.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

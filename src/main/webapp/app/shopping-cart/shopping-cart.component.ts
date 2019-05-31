@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MovieService } from 'app/entities/movie';
 import { JhiDataUtils } from 'ng-jhipster';
 import { ToastrService } from 'ngx-toastr';
+import { OrderHistoryService } from 'app/entities/order-history';
+import { IOrderHistory, OrderHistory } from 'app/shared/model/order-history.model';
+import moment = require('moment');
+import { AccountService } from 'app/core';
 @Component({
     selector: 'jhi-shopping-cart',
     templateUrl: './shopping-cart.component.html',
@@ -12,10 +16,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ShoppingCartComponent implements OnInit {
     private items: Item[];
     private totalCost = 0;
+    private totalQuantity = 0;
+    private account: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private movieService: MovieService,
+        private orderHistoryService: OrderHistoryService,
+        private accountService: AccountService,
         protected dataUtils: JhiDataUtils,
         private toastr: ToastrService
     ) {}
@@ -24,6 +32,9 @@ export class ShoppingCartComponent implements OnInit {
         if (localStorage.getItem('cart') !== null) {
             this.loadCart();
         }
+        this.accountService.identity().then(account => {
+            this.account = account;
+        });
     }
 
     addToCart(id: number) {
@@ -77,6 +88,7 @@ export class ShoppingCartComponent implements OnInit {
                 quantity: item.quantity
             });
             this.totalCost += item.movie.price * item.quantity;
+            this.totalQuantity += item.quantity;
         }
     }
 
@@ -106,7 +118,30 @@ export class ShoppingCartComponent implements OnInit {
 
     buyMovies(items: Item[]) {
         if (confirm('Are you sure you would like to purchase?')) {
-            //todo add order to DB
+            const orderHistory = new OrderHistory();
+            orderHistory.orderDate = moment();
+            orderHistory.accountName = this.account.login;
+            orderHistory.orderStatus = 'in progress';
+            orderHistory.quantity = this.totalQuantity;
+            orderHistory.price = this.totalCost;
+            orderHistory.movieTitle = '';
+
+            items.forEach(item => {
+                const updatedQty = item.movie.qtyInStock - item.quantity;
+                console.log(item);
+
+                if (updatedQty >= 0) {
+                    item.movie.qtyInStock = updatedQty;
+                    this.movieService.update(item.movie).subscribe();
+                } else {
+                    this.toastr.error('Movie is out of stock');
+                }
+                if (item.movie.title) {
+                    orderHistory.movieTitle += item.movie.title + ' ';
+                }
+            });
+
+            this.orderHistoryService.create(orderHistory).subscribe();
             this.clearCart();
             this.toastr.success('Successfully purchased, please see order history for tracking status');
         }

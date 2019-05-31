@@ -63,11 +63,17 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="movie.qtyInStock > 0" type="submit"
                                 (click)="addToCart(movie.id)"
                                 class="btn btn-success btn-sm">
                             <fa-icon [icon]="'shopping-basket'"></fa-icon>
                             <span class="d-none d-md-inline">Add to Cart</span>
+                        </button>
+                        <button *ngIf="movie.qtyInStock <= 0" [disabled]="true" type="submit"
+                                (click)="addToCart(movie.id)"
+                                class="btn btn-success btn-sm">
+                            <fa-icon [icon]="'shopping-basket'"></fa-icon>
+                            <span class="d-none d-md-inline">Out of Stock</span>
                         </button>
                         <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                 [routerLink]="['/movie', movie.id, 'edit']"
