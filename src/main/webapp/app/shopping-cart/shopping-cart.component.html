@@ -26,7 +26,7 @@
                             <img [src]="'data:' + item.movie.imageContentType + ';base64,' + item.movie.image" style="max-height: 100px;" alt="movie image"/>
                         </a>
                     </td>
-                    <td>{{item.movie.price}}</td>
+                    <td>{{item.movie.price | currency}}</td>
                     <td>{{item.quantity}}</td>
                     <td>{{(item.movie.price * item.quantity) | currency}}</td>
                 </tr>
