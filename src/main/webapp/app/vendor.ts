@@ -43,7 +43,8 @@ import {
     faShoppingCart,
     faFilm,
     faVideo,
-    faShoppingBasket
+    faShoppingBasket,
+    faMoneyBillWave
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -85,5 +86,5 @@ library.add(faShoppingCart);
 library.add(faFilm);
 library.add(faVideo);
 library.add(faShoppingBasket);
-
+library.add(faMoneyBillWave);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here
